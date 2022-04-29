@@ -1,12 +1,8 @@
 import 'regenerator-runtime'
-import '../styles/main.css'
-import '../styles/responsive.css'
+import '../styles/main.scss'
 import App from './views/app'
 import swRegister from './utils/sw-register'
-// import dom from './dom' /* for async await transpile */
 require('bootstrap-icons/font/bootstrap-icons.css')
-
-// document.querySelector('load', dom)
 
 const app = new App({
   button: document.querySelector('#hamburgerButton'),

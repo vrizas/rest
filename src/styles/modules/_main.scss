@@ -1,0 +1,396 @@
+#home {
+  .hero {
+    width: 100%;
+    position: relative;
+
+    img.jumbotron {
+      width: 100%;
+    }
+
+    h2 {
+      font-size: 20px;
+      color: $color-white;
+    }
+
+    .hero-content {
+      position: absolute;
+      bottom: 30px;
+      left: 15px;
+    }
+  }
+
+  .menu-of-the-week {
+    padding: 10px 15px;
+    margin-bottom: 20px;
+
+    .items-wrapper {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+
+      .item {
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        color: $color-black;
+
+        img {
+          width: 100%;
+          height: 200px;
+          object-fit: cover;
+          border-radius: 10px;
+        }
+
+        h4 {
+          font-size: 15px;
+          color: $color-black;
+          text-align: center;
+          padding: 10px;
+        }
+      }
+    }
+  }
+
+  .rekomendasi {
+    h3 {
+      position: relative;
+      font-size: 18px;
+      margin-bottom: 25px;
+      width: fit-content;
+
+      &::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 2.5px;
+        background-color: $color-main;
+        bottom: -5px;
+        left: 0;
+      }
+    }
+  }
+
+  #restaurant {
+    padding: 45px 0 0 0;
+  }
+}
+
+#home .rekomendasi,
+#like #restaurant {
+  padding: 10px 15px;
+}
+
+#home .rekomendasi .restaurants-wrapper,
+#like .restaurants-wrapper {
+  display: grid;
+  gap: 20px;
+}
+
+#like {
+  h2 {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+}
+
+main {
+  .search-container {
+    display: none;
+    width: 100%;
+    height: 100vh;
+    background-color: $color-white;
+    padding: 10px 15px;
+    position: fixed;
+    z-index: 102;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+
+    .flex-container {
+      display: flex;
+    }
+
+    i.bi-chevron-left {
+      font-size: 25px;
+    }
+  }
+
+  .search-wrapper {
+    width: 100%;
+    display: flex;
+    height: fit-content;
+    position: relative;
+
+    input {
+      width: 93%;
+      min-height: 44px;
+      border: none;
+      border-radius: 5px 0 0 5px;
+      padding: 10px 15px 10px 45px;
+      background-color: whitesmoke;
+    }
+
+    button {
+      width: 7%;
+      color: $color-white;
+      background-color: $color-main;
+      padding: 5px 10px;
+      border-radius: 0 5px 5px 0;
+    }
+
+    i {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 15px;
+    }
+  }
+
+  .search-list {
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    li {
+      background-color: $color-white;
+      border-radius: 5px;
+      margin-top: 5px;
+    }
+
+    .item {
+      padding: 20px 25px;
+      width: 100%;
+      height: 100%;
+      justify-content: start;
+      gap: 10px;
+
+      .img-wrapper {
+        width: 80px;
+        height: 55px;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 5px;
+      }
+
+      p {
+        font-size: 14px;
+        font-weight: $fw-md;
+        color: $color-grey;
+        margin-top: 3px;
+      }
+    }
+  }
+
+  .rekomendasi,
+  .like {
+    .restaurants-wrapper {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+}
+
+@media screen and (min-width: 576px) {
+  #home .menu-of-the-week {
+    .items-wrapper {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  main {
+    .rekomendasi,
+    .like {
+      .restaurants-wrapper {
+        grid-template-columns: repeat(2, 1fr);
+
+        .item-content {
+          padding: 10px 40px 20px 20px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  #navigationDrawer ul {
+    transform: translate(800px, 0);
+  }
+}
+
+@media screen and (min-width: 992px) {
+  #home {
+    .hero {
+      height: calc(100vh - 54px);
+      position: relative;
+      z-index: 99;
+
+      h2 {
+        text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4),
+          0px 8px 13px rgba(0, 0, 0, 0.1), 0px 18px 23px rgba(0, 0, 0, 0.1);
+        font-size: 26px;
+      }
+
+      img.jumbotron {
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .hero-content {
+        width: 60%;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+        bottom: 0;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -60%);
+      }
+
+      .search-container-desktop {
+        width: 100%;
+        position: relative;
+      }
+
+      .search-wrapper-desktop {
+        width: 100%;
+        display: flex;
+
+        input {
+          width: 93%;
+          min-height: 44px;
+          border: none;
+          border-radius: 5px 0 0 5px;
+          padding: 10px 15px 10px 45px;
+        }
+
+        button {
+          width: 7%;
+          color: $color-white;
+          background-color: $color-main;
+          padding: 10px 15px;
+          border-radius: 0 5px 5px 0;
+        }
+
+        i {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          left: 15px;
+        }
+      }
+
+      .search-list-desktop {
+        position: absolute;
+        width: 100%;
+
+        li {
+          background-color: $color-white;
+          border-radius: 5px;
+          margin-top: 5px;
+          box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+        }
+
+        .item {
+          padding: 20px 25px;
+          width: 100%;
+          height: 100%;
+          justify-content: start;
+          gap: 10px;
+
+          .img-wrapper {
+            width: 80px;
+            height: 55px;
+          }
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+          }
+
+          p {
+            font-size: 14px;
+            font-weight: $fw-md;
+            color: $color-grey;
+            margin-top: 3px;
+          }
+        }
+      }
+    }
+
+    .menu-of-the-week {
+      padding: 10px 30px;
+
+      .items-wrapper {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+  }
+
+  #home .rekomendasi,
+  #like #restaurant {
+    padding: 10px 30px;
+  }
+
+  main {
+    .rekomendasi,
+    .like {
+      .restaurants-wrapper {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  #home .hero img.jumbotron {
+    min-width: 1000px;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  #home .menu-of-the-week {
+    .items-wrapper {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+
+  main {
+    .rekomendasi,
+    .like {
+      .restaurants-wrapper {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1900px) {
+  #home .menu-of-the-week {
+    .items-wrapper {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+
+  main {
+    .rekomendasi,
+    .like {
+      .restaurants-wrapper {
+        grid-template-columns: repeat(7, 1fr);
+      }
+    }
+  }
+}

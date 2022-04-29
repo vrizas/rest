@@ -87,13 +87,13 @@ class RestaurantDetail extends HTMLElement {
             }
 
             .rating i {
-                color: var(--color-main);
+                color: #fcc915;
                 font-size: 15px;
             }
 
             .rating-text {
                 margin-left: 5px;
-                font-weight: var(--fw-md);
+                font-weight: 500;
             }
 
             .content {
@@ -124,8 +124,8 @@ class RestaurantDetail extends HTMLElement {
             }
 
             .like-button {
-                background-color: var(--color-error);
-                color: var(--color-white);
+                background-color: #e4565e;
+                color: #fdfffe;
                 font-size: 15px;
                 padding: 10px 15px;
                 border-radius: 7px;
@@ -161,8 +161,8 @@ class RestaurantDetail extends HTMLElement {
             }
 
             .customer-reviews form .action button {
-                background-color: var(--color-main-darker);
-                color: var(--color-white);
+                background-color: #f4a304;
+                color: #fdfffe;
                 padding: 10px 45px;
                 border-radius: 7px;
                 font-weight: bold;
