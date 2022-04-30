@@ -31,7 +31,7 @@ class RestaurantItem extends HTMLElement {
               display: flex;
               flex-direction: column; 
               text-decoration: none; 
-              color: var(--color-black); 
+              color: #2e2d2d; 
           }
 
           .item .img-wrapper {
@@ -52,7 +52,7 @@ class RestaurantItem extends HTMLElement {
           }
 
           .rating {
-              background-color: var(--color-white);
+              background-color: #fdfffe;
               padding: 5px 7px;
               border-radius: 5px 0 0 0;
               position: absolute;
@@ -62,13 +62,13 @@ class RestaurantItem extends HTMLElement {
           }
 
           .rating i {
-              color: var(--color-main);
+              color: #fcc915;
               font-size: 15px;
           }
 
           .rating-text {
               margin-right: 3px;
-              font-weight: var(--fw-md);
+              font-weight: 500;
           }
 
           .item-content {
@@ -82,8 +82,8 @@ class RestaurantItem extends HTMLElement {
 
           .item-content .lokasi {
               font-size: 14px;
-              font-weight: var(--fw-md);
-              color: var(--color-grey);
+              font-weight: 500;
+              color: #585858;
               margin-bottom: 10px;
           }
 

@@ -14,6 +14,27 @@ const Home = {
             <h2>Temukan Restaurant Favoritmu</h2>
           </section>
         </article>
+        <article class="menu-of-the-week">
+          <h3>Menu of The Week</h3>
+          <section class="items-wrapper">
+            <div class="item">
+              <img src="./images/menus/ice-cream.jpg" alt="Ice Cream" />
+              <h4>Ice Cream</h4>
+            </div>
+            <div class="item">
+              <img src="./images/menus/pizza.jpg" alt="Pizza" />
+              <h4>Pizza</h4>
+            </div>
+            <div class="item">
+              <img src="./images/menus/cappuccino.jpg" alt="Cappuccino" />
+              <h4>Cappuccino</h4>
+            </div>
+            <div class="item">
+              <img src="./images/menus/steak.jpg" alt="Steak" />
+              <h4>Steak</h4>
+            </div>
+          </section>
+        </article>
         <div id="restaurant">
           <article class="rekomendasi">
             <h3>Rekomendasi Kami</h3>

@@ -8,7 +8,7 @@ const Like = {
       <section id="like">
         <div id="restaurant">
             <article class="like">
-                <h2>Restaurant yang Kamu Sukai</h2>
+                <h3>Restaurant yang Kamu Sukai</h3>
                 <section class="restaurants-wrapper"></section>
             </article>
         </div>
