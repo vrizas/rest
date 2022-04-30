@@ -2,13 +2,20 @@ var serviceWorkerOption = {
   "assets": [
     "/webfonts/bootstrap-icons.woff2",
     "/webfonts/bootstrap-icons.woff",
-    "/bundle.js",
+    "/bundle_defaultVendors~main~7274e1de.js",
+    "/bundle_defaultVendors~main~966f136a.js",
+    "/bundle_main~29d6ecf2.js",
+    "/bundle_main~5785a947.js",
     "/favicon.ico",
     "/manifest.json",
     "/icons/icon-192x192.png",
     "/icons/icon-256x256.png",
     "/icons/icon-384x384.png",
     "/icons/icon-512x512.png",
+    "/images/menus/cappuccino.jpg",
+    "/images/menus/ice-cream.jpg",
+    "/images/menus/pizza.jpg",
+    "/images/menus/steak.jpg",
     "/images/heros/hero-image_4.jpg",
     "/index.html"
   ]
