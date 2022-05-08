@@ -13,11 +13,16 @@ const Detail = {
 
   async afterRender () {
     const url = UrlParser.parseActiveUrlWithoutCombiner()
-    const restaurantWrapper = document.querySelector('#restaurant')
-    restaurantWrapper.innerHTML = '<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>'
-    const restaurant = await RestaurantsSource.detailRestaurant(url.id)
-    restaurantWrapper.innerHTML = ''
-    restaurantWrapper.append(createRestaurantDetailTemplate(restaurant))
+
+    try {
+      const restaurantWrapper = document.querySelector('#restaurant')
+      restaurantWrapper.innerHTML = '<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>'
+      const restaurant = await RestaurantsSource.detailRestaurant(url.id)
+      restaurantWrapper.innerHTML = ''
+      restaurantWrapper.append(createRestaurantDetailTemplate(restaurant))
+    } catch (error) {
+      window.location.hash = '/error'
+    }
   }
 }
 

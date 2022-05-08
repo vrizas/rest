@@ -46,8 +46,8 @@ const Home = {
   },
 
   async afterRender () {
-    const restaurantsWrapper = document.querySelector('.rekomendasi .restaurants-wrapper')
     try {
+      const restaurantsWrapper = document.querySelector('.rekomendasi .restaurants-wrapper')
       restaurantsWrapper.innerHTML = '<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>'
       const restaurants = await RestaurantsSource.recommendedRestaurants()
       restaurantsWrapper.innerHTML = ''
@@ -57,7 +57,7 @@ const Home = {
         }
       })
     } catch {
-      console.log('error')
+      window.location.hash = '/error'
     }
 
     DOM()
