@@ -1,5 +1,6 @@
 import RestaurantsSource from '../../../data/restaurants-source'
 import LikeButtonInitiator from '../../../utils/like-button-initiator'
+import showFlashMessage from '../../../utils/flash-message'
 
 /* eslint-disable eqeqeq */
 class RestaurantDetail extends HTMLElement {
@@ -353,18 +354,62 @@ class RestaurantDetail extends HTMLElement {
 
     this.renderReviews()
 
-    this.shadowDOM.querySelector('.customer-reviews form button').addEventListener('click', (event) => {
+    this.shadowDOM.querySelector('.customer-reviews form button').addEventListener('click', async (event) => {
       event.preventDefault()
-      const review = {
-        id: this.id,
-        name: this.shadowDOM.querySelector('.customer-reviews form #name').value,
-        review: this.shadowDOM.querySelector('.customer-reviews form #review').value
+      try {
+        const review = {
+          id: this.id,
+          name: this.shadowDOM.querySelector('.customer-reviews form #name').value,
+          review: this.shadowDOM.querySelector('.customer-reviews form #review').value
+        }
+        const response = await RestaurantsSource.reviewRestaurant(review)
+
+        if (response.error) {
+          throw new SyntaxError('Nama dan review wajib diisi!')
+        }
+
+        this.shadowDOM.querySelector('.customer-reviews .items-wrapper').innerHTML += `
+        <div class="item">
+            <div class="item-header">   
+                <p><b>${review.name}</b></p>
+                <p>${this.createDateFormatNow()}</p>
+            </div>
+            <div class="item-content">
+                <p>${review.review}</p>
+            </div>
+        </div>
+        `
+
+        this.shadowDOM.querySelector('.customer-reviews form #name').value = ''
+        this.shadowDOM.querySelector('.customer-reviews form #review').value = ''
+      } catch (error) {
+        showFlashMessage(error.message, 'error')
       }
-      RestaurantsSource.reviewRestaurant(review)
-      this.shadowDOM.querySelector('.customer-reviews form #name').value = ''
-      this.shadowDOM.querySelector('.customer-reviews form #review').value = ''
-      this.renderReviews()
     })
+  }
+
+  createDateFormatNow () {
+    const now = new Date()
+    const year = now.getFullYear()
+    let month = now.getMonth()
+    const date = now.getDate()
+
+    switch (month) {
+      case 0: month = 'Januari'; break
+      case 1: month = 'Februari'; break
+      case 2: month = 'Maret'; break
+      case 3: month = 'April'; break
+      case 4: month = 'Mei'; break
+      case 5: month = 'Juni'; break
+      case 6: month = 'Juli'; break
+      case 7: month = 'Agustus'; break
+      case 8: month = 'September'; break
+      case 9: month = 'Oktober'; break
+      case 10: month = 'November'; break
+      case 11: month = 'Desember'; break
+    }
+
+    return `${date} ${month} ${year}`
   }
 
   async likeButtonInit () {
@@ -385,8 +430,7 @@ class RestaurantDetail extends HTMLElement {
   async renderReviews () {
     this.shadowDOM.querySelector('.customer-reviews .items-wrapper').innerHTML = ''
 
-    const result = await RestaurantsSource.detailRestaurant(this.id)
-    result.customerReviews.forEach(review => {
+    this.reviews.forEach(review => {
       const item = `
         <div class="item">
             <div class="item-header">   

@@ -17,9 +17,11 @@ const Like = {
   },
 
   async afterRender () {
-    const restaurants = await FavoriteRestaurantIdb.getAllRestaurants()
     const restaurantsWrapper = document.querySelector('.restaurants-wrapper')
+    restaurantsWrapper.innerHTML = '<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>'
+    const restaurants = await FavoriteRestaurantIdb.getAllRestaurants()
 
+    restaurantsWrapper.innerHTML = ''
     if (restaurants.length > 0) {
       restaurants.forEach(restaurant => {
         restaurantsWrapper.append(createRestaurantItemTemplate(restaurant))

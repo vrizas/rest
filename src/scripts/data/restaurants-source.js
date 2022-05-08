@@ -28,7 +28,7 @@ class RestaurantsSource {
       body: JSON.stringify(review)
     })
     const responseJson = await response.json()
-    return responseJson.message
+    return responseJson
   }
 }
 

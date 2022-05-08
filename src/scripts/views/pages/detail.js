@@ -13,8 +13,10 @@ const Detail = {
 
   async afterRender () {
     const url = UrlParser.parseActiveUrlWithoutCombiner()
-    const restaurant = await RestaurantsSource.detailRestaurant(url.id)
     const restaurantWrapper = document.querySelector('#restaurant')
+    restaurantWrapper.innerHTML = '<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>'
+    const restaurant = await RestaurantsSource.detailRestaurant(url.id)
+    restaurantWrapper.innerHTML = ''
     restaurantWrapper.append(createRestaurantDetailTemplate(restaurant))
   }
 }

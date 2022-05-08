@@ -46,14 +46,19 @@ const Home = {
   },
 
   async afterRender () {
-    const restaurants = await RestaurantsSource.recommendedRestaurants()
     const restaurantsWrapper = document.querySelector('.rekomendasi .restaurants-wrapper')
-
-    restaurants.forEach(restaurant => {
-      if (restaurant.rating >= 4) {
-        restaurantsWrapper.append(createRestaurantItemTemplate(restaurant))
-      }
-    })
+    try {
+      restaurantsWrapper.innerHTML = '<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>'
+      const restaurants = await RestaurantsSource.recommendedRestaurants()
+      restaurantsWrapper.innerHTML = ''
+      restaurants.forEach(restaurant => {
+        if (restaurant.rating >= 4) {
+          restaurantsWrapper.append(createRestaurantItemTemplate(restaurant))
+        }
+      })
+    } catch {
+      console.log('error')
+    }
 
     DOM()
   }
