@@ -195,7 +195,8 @@ main {
 
     button {
       width: 7%;
-      color: $color-white;
+      color: black;
+      font-weight: $fw-md;
       background-color: $color-main;
       padding: 5px 10px;
       border-radius: 0 5px 5px 0;
@@ -443,7 +444,8 @@ main {
 
         button {
           width: 7%;
-          color: $color-white;
+          color: black;
+          font-weight: $fw-md;
           background-color: $color-main;
           padding: 10px 15px;
           border-radius: 0 5px 5px 0;
