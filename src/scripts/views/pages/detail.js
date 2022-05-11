@@ -6,7 +6,7 @@ const Detail = {
   async render () {
     return `
       <section id="detail">
-        <article id="restaurant"></article>
+        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
       </section>
     `
   },
@@ -15,13 +15,17 @@ const Detail = {
     const url = UrlParser.parseActiveUrlWithoutCombiner()
 
     try {
-      const restaurantWrapper = document.querySelector('#restaurant')
-      restaurantWrapper.innerHTML = '<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>'
+      const detail = document.querySelector('#detail')
       const restaurant = await RestaurantsSource.detailRestaurant(url.id)
-      restaurantWrapper.innerHTML = ''
+      detail.innerHTML = '<article id="restaurant"></article>'
+      const restaurantWrapper = document.querySelector('#restaurant')
       restaurantWrapper.append(createRestaurantDetailTemplate(restaurant))
     } catch (error) {
-      window.location.hash = '/error'
+      if (error.status === 404) {
+        window.location.hash = '/404'
+      } else {
+        window.location.hash = '/internalerror'
+      }
     }
   }
 }

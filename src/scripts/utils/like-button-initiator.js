@@ -1,6 +1,7 @@
 import FavoriteRestaurantIdb from '../data/favorite-restaurant-idb'
 import '../views/templates/components/restaurant-detail'
 import { createLikeButtonTemplate, createLikedButtonTemplate } from '../views/templates/template-creator'
+import showFlashMessage from './flash-message'
 
 const LikeButtonInitiator = {
   async init ({ likeButtonWrapper, restaurant }) {
@@ -32,6 +33,7 @@ const LikeButtonInitiator = {
     likeButton.addEventListener('click', async () => {
       await FavoriteRestaurantIdb.putRestaurant(this._restaurant)
       this._renderButton()
+      showFlashMessage('Restaurant disukai', 'success')
     })
   },
 
@@ -42,6 +44,7 @@ const LikeButtonInitiator = {
     likeButton.addEventListener('click', async () => {
       await FavoriteRestaurantIdb.deleteRestaurant(this._restaurant.id)
       this._renderButton()
+      showFlashMessage('Restaurant batal disukai', 'error')
     })
   }
 }

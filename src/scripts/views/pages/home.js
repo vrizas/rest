@@ -8,56 +8,58 @@ const Home = {
   async render () {
     return `
       <section id="home">
-        <article class="hero">
-          <img src="./images/heros/hero-image_4.jpg" alt="" class="jumbotron" />
-          <section class="hero-content">
-            <h2>Temukan Restaurant Favoritmu</h2>
-          </section>
-        </article>
-        <article class="menu-of-the-week">
-          <h3>Menu of The Week</h3>
-          <section class="items-wrapper">
-            <div class="item">
-              <img src="./images/menus/ice-cream.jpg" alt="Ice Cream" />
-              <h4>Ice Cream</h4>
-            </div>
-            <div class="item">
-              <img src="./images/menus/pizza.jpg" alt="Pizza" />
-              <h4>Pizza</h4>
-            </div>
-            <div class="item">
-              <img src="./images/menus/cappuccino.jpg" alt="Cappuccino" />
-              <h4>Cappuccino</h4>
-            </div>
-            <div class="item">
-              <img src="./images/menus/steak.jpg" alt="Steak" />
-              <h4>Steak</h4>
-            </div>
-          </section>
-        </article>
-        <div id="restaurant">
-          <article class="rekomendasi">
-            <h3>Rekomendasi Kami</h3>
-            <section class="restaurants-wrapper"></section>
-          </article>
-        </div>
+        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
       </section>
     `
   },
 
   async afterRender () {
     try {
-      const restaurantsWrapper = document.querySelector('.rekomendasi .restaurants-wrapper')
-      restaurantsWrapper.innerHTML = '<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>'
+      const home = document.querySelector('#home')
       const restaurants = await RestaurantsSource.recommendedRestaurants()
-      restaurantsWrapper.innerHTML = ''
+      home.innerHTML = `
+      <article class="hero">
+        <img src="./images/heros/hero-image_4.jpg" alt="" class="jumbotron" />
+        <section class="hero-content">
+          <h2>Temukan Restaurant Favoritmu</h2>
+        </section>
+      </article>
+      <article class="menu-of-the-week">
+        <h3>Menu of The Week</h3>
+        <section class="items-wrapper">
+          <div class="item">
+            <img src="./images/menus/ice-cream.jpg" alt="Ice Cream" />
+            <h4>Ice Cream</h4>
+          </div>
+          <div class="item">
+            <img src="./images/menus/pizza.jpg" alt="Pizza" />
+            <h4>Pizza</h4>
+          </div>
+          <div class="item">
+            <img src="./images/menus/cappuccino.jpg" alt="Cappuccino" />
+            <h4>Cappuccino</h4>
+          </div>
+          <div class="item">
+            <img src="./images/menus/steak.jpg" alt="Steak" />
+            <h4>Steak</h4>
+          </div>
+        </section>
+      </article>
+      <div id="restaurant">
+        <article class="rekomendasi">
+          <h3>Rekomendasi Kami</h3>
+          <section class="restaurants-wrapper"></section>
+        </article>
+      </div>`
+
+      const restaurantsWrapper = document.querySelector('.rekomendasi .restaurants-wrapper')
       restaurants.forEach(restaurant => {
         if (restaurant.rating >= 4) {
           restaurantsWrapper.append(createRestaurantItemTemplate(restaurant))
         }
       })
     } catch {
-      window.location.hash = '/error'
+      window.location.hash = '/internalerror'
     }
 
     DOM()

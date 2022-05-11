@@ -1,5 +1,5 @@
 
-const Error = {
+const InternalError = {
   async render () {
     return `
       <section id="error">
@@ -17,4 +17,4 @@ const Error = {
   }
 }
 
-export default Error
+export default InternalError
