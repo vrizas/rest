@@ -40,11 +40,15 @@ class App {
   }
 
   navigationActivate (url) {
+    const logoWrapper = document.querySelector('.logo-wrapper')
+
     this._navigations.forEach(navigation => {
       navigation.classList.remove('active')
+      logoWrapper.classList.remove('active')
     })
     if (url === '/') {
       this._navigations[0].classList.add('active')
+      logoWrapper.classList.add('active')
     } else if (url === '/like') {
       this._navigations[1].classList.add('active')
     }
