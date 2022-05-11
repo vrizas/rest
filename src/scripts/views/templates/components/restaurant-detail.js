@@ -1,5 +1,6 @@
 import RestaurantsSource from '../../../data/restaurants-source'
 import LikeButtonInitiator from '../../../utils/like-button-initiator'
+import showFlashMessage from '../../../utils/flash-message'
 
 /* eslint-disable eqeqeq */
 class RestaurantDetail extends HTMLElement {
@@ -15,6 +16,7 @@ class RestaurantDetail extends HTMLElement {
     this.name = this.getAttribute('name') || null
     this.description = this.getAttribute('description') || null
     this.pictureId = this.getAttribute('pictureId') || null
+    this.pictureUrl = this.getAttribute('pictureUrl') || null
     this.address = this.getAttribute('address') || null
     this.city = this.getAttribute('city') || null
     this.rating = this.getAttribute('rating') || null
@@ -152,6 +154,8 @@ class RestaurantDetail extends HTMLElement {
 
             .customer-reviews {
               margin-top: 20px;  
+              word-wrap: break-word;
+              word-break: break-all;
             } 
 
             .customer-reviews form {
@@ -221,7 +225,7 @@ class RestaurantDetail extends HTMLElement {
             }
         </style>
         <article class="hero">
-            <img src="${this.pictureId}" alt="Foto Restaurant ${this.name}, ${this.city}">
+            <img src="${this.pictureUrl}" alt="Foto Restaurant ${this.name}, ${this.city}">
         </article>
         <article class="content">
             <div class="top-content">
@@ -278,7 +282,112 @@ class RestaurantDetail extends HTMLElement {
 
     this.likeButtonInit()
 
+    this.renderRating()
+
+    this.menus.foods.forEach(food => {
+      const item = `<li>${food.name}</li>`
+      this.shadowDOM.querySelector('.foods-menu').innerHTML += item
+    })
+
+    this.menus.drinks.forEach(food => {
+      const item = `<li>${food.name}</li>`
+      this.shadowDOM.querySelector('.drinks-menu').innerHTML += item
+    })
+
+    this.renderReviews()
+
+    this.shadowDOM.querySelector('.customer-reviews form button').addEventListener('click', async (event) => {
+      event.preventDefault()
+      try {
+        const review = {
+          id: this.id,
+          name: this.shadowDOM.querySelector('.customer-reviews form #name').value,
+          review: this.shadowDOM.querySelector('.customer-reviews form #review').value
+        }
+        await RestaurantsSource.reviewRestaurant(review)
+
+        this.shadowDOM.querySelector('.customer-reviews .items-wrapper').innerHTML += `
+        <div class="item">
+            <div class="item-header">   
+                <p><b>${review.name}</b></p>
+                <p>${this.createDateFormatNow()}</p>
+            </div>
+            <div class="item-content">
+                <p>${review.review}</p>
+            </div>
+        </div>
+        `
+
+        this.shadowDOM.querySelector('.customer-reviews form #name').value = ''
+        this.shadowDOM.querySelector('.customer-reviews form #review').value = ''
+
+        showFlashMessage('Review terkirim', 'success')
+      } catch (error) {
+        showFlashMessage(error.message, 'error')
+      }
+    })
+  }
+
+  createDateFormatNow () {
+    const now = new Date()
+    const year = now.getFullYear()
+    let month = now.getMonth()
+    const date = now.getDate()
+
+    switch (month) {
+      case 0: month = 'Januari'; break
+      case 1: month = 'Februari'; break
+      case 2: month = 'Maret'; break
+      case 3: month = 'April'; break
+      case 4: month = 'Mei'; break
+      case 5: month = 'Juni'; break
+      case 6: month = 'Juli'; break
+      case 7: month = 'Agustus'; break
+      case 8: month = 'September'; break
+      case 9: month = 'Oktober'; break
+      case 10: month = 'November'; break
+      case 11: month = 'Desember'; break
+    }
+
+    return `${date} ${month} ${year}`
+  }
+
+  async likeButtonInit () {
+    LikeButtonInitiator.init({
+      likeButtonWrapper: this.shadowDOM.querySelector('#likeButtonWrapper'),
+      restaurant: {
+        id: this.id,
+        name: this.name,
+        description: this.description,
+        pictureId: this.pictureId,
+        city: this.city,
+        rating: this.rating
+      }
+    })
+  }
+
+  async renderReviews () {
+    this.shadowDOM.querySelector('.customer-reviews .items-wrapper').innerHTML = ''
+
+    this.reviews.forEach(review => {
+      const item = `
+        <div class="item">
+            <div class="item-header">   
+                <p><b>${review.name}</b></p>
+                <p>${review.date}</p>
+            </div>
+            <div class="item-content">
+                <p>${review.review}</p>
+            </div>
+        </div>
+        `
+      this.shadowDOM.querySelector('.customer-reviews .items-wrapper').innerHTML += item
+    })
+  }
+
+  renderRating () {
     const ratingStar = this.shadowDOM.querySelectorAll('.rating i')
+
     if (this.rating < 1) {
       ratingStar[0].className = 'bi bis-star-half'
       ratingStar[1].className = 'bi bi-star'
@@ -340,66 +449,6 @@ class RestaurantDetail extends HTMLElement {
       ratingStar[3].className = 'bi bi-star-fill'
       ratingStar[4].className = 'bi bi-star-fill'
     }
-
-    this.menus.foods.forEach(food => {
-      const item = `<li>${food.name}</li>`
-      this.shadowDOM.querySelector('.foods-menu').innerHTML += item
-    })
-
-    this.menus.drinks.forEach(food => {
-      const item = `<li>${food.name}</li>`
-      this.shadowDOM.querySelector('.drinks-menu').innerHTML += item
-    })
-
-    this.renderReviews()
-
-    this.shadowDOM.querySelector('.customer-reviews form button').addEventListener('click', (event) => {
-      event.preventDefault()
-      const review = {
-        id: this.id,
-        name: this.shadowDOM.querySelector('.customer-reviews form #name').value,
-        review: this.shadowDOM.querySelector('.customer-reviews form #review').value
-      }
-      RestaurantsSource.reviewRestaurant(review)
-      this.shadowDOM.querySelector('.customer-reviews form #name').value = ''
-      this.shadowDOM.querySelector('.customer-reviews form #review').value = ''
-      this.renderReviews()
-    })
-  }
-
-  async likeButtonInit () {
-    const restaurant = await RestaurantsSource.detailRestaurant(this.id)
-    LikeButtonInitiator.init({
-      likeButtonWrapper: this.shadowDOM.querySelector('#likeButtonWrapper'),
-      restaurant: {
-        id: restaurant.id,
-        name: restaurant.name,
-        description: restaurant.description,
-        pictureId: restaurant.pictureId,
-        city: restaurant.city,
-        rating: restaurant.rating
-      }
-    })
-  }
-
-  async renderReviews () {
-    this.shadowDOM.querySelector('.customer-reviews .items-wrapper').innerHTML = ''
-
-    const result = await RestaurantsSource.detailRestaurant(this.id)
-    result.customerReviews.forEach(review => {
-      const item = `
-        <div class="item">
-            <div class="item-header">   
-                <p><b>${review.name}</b></p>
-                <p>${review.date}</p>
-            </div>
-            <div class="item-content">
-                <p>${review.review}</p>
-            </div>
-        </div>
-        `
-      this.shadowDOM.querySelector('.customer-reviews .items-wrapper').innerHTML += item
-    })
   }
 }
 customElements.define('restaurant-detail', RestaurantDetail)

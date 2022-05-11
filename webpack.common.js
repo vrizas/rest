@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin')
+const WebpackPwaManifest = require('webpack-pwa-manifest')
 const path = require('path')
 
 module.exports = {
@@ -44,6 +45,28 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src/templates/index.html'),
       filename: 'index.html'
+    }),
+    new WebpackPwaManifest({
+      name: 'Restaurant Catalogue Lite',
+      short_name: 'REST Lite',
+      description: 'Aplikasi untuk mencari restaurant favoritmu di sekitar kamu',
+      background_color: '#ffffff',
+      crossorigin: 'use-credentials',
+      icons: [
+        {
+          src: path.resolve(__dirname, 'src/public/icons/icon.png'),
+          sizes: [96, 128, 192, 256, 384, 512]
+        },
+        {
+          src: path.resolve(__dirname, 'src/public/icons/large-icon.png'),
+          size: '1024x1024'
+        },
+        {
+          src: path.resolve(__dirname, 'src/public/icons/maskable-icon.png'),
+          size: '1024x1024',
+          purpose: 'maskable'
+        }
+      ]
     }),
     new CopyWebpackPlugin({
       patterns: [

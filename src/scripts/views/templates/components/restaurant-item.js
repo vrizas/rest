@@ -9,6 +9,7 @@ class RestaurantItem extends HTMLElement {
     this.name = this.getAttribute('name') || null
     this.description = this.getAttribute('description') || null
     this.pictureId = this.getAttribute('pictureId') || null
+    this.pictureUrl = this.getAttribute('pictureUrl') || null
     this.city = this.getAttribute('city') || null
     this.rating = this.getAttribute('rating') || null
     this.render()
@@ -104,7 +105,7 @@ class RestaurantItem extends HTMLElement {
         <a aria-label="Restaurant ${this.name}, ${this.city}" href="/#/detail/${this.id}" class="item">
           <div class="item-hero">
               <div class="img-wrapper">
-                <img src="${this.pictureId}" alt="Foto Restaurant ${this.name}, ${this.city}">
+                <img src="${this.pictureUrl}" alt="Restaurant ${this.name}, ${this.city}">
               </div>
               <div class="rating">
                   <span class="rating-text">${this.rating}</span>

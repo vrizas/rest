@@ -1,59 +1,68 @@
 import RestaurantsSource from '../../data/restaurants-source'
 import {
   createRestaurantItemTemplate,
-  createSearchItemTemplate
+  createSearchItemsTemplate
 } from '../templates/template-creator'
 
 const Home = {
   async render () {
     return `
       <section id="home">
-        <article class="hero">
-          <img src="./images/heros/hero-image_4.jpg" alt="" class="jumbotron" />
-          <section class="hero-content">
-            <h2>Temukan Restaurant Favoritmu</h2>
-          </section>
-        </article>
-        <article class="menu-of-the-week">
-          <h3>Menu of The Week</h3>
-          <section class="items-wrapper">
-            <div class="item">
-              <img src="./images/menus/ice-cream.jpg" alt="Ice Cream" />
-              <h4>Ice Cream</h4>
-            </div>
-            <div class="item">
-              <img src="./images/menus/pizza.jpg" alt="Pizza" />
-              <h4>Pizza</h4>
-            </div>
-            <div class="item">
-              <img src="./images/menus/cappuccino.jpg" alt="Cappuccino" />
-              <h4>Cappuccino</h4>
-            </div>
-            <div class="item">
-              <img src="./images/menus/steak.jpg" alt="Steak" />
-              <h4>Steak</h4>
-            </div>
-          </section>
-        </article>
-        <div id="restaurant">
-          <article class="rekomendasi">
-            <h3>Rekomendasi Kami</h3>
-            <section class="restaurants-wrapper"></section>
-          </article>
-        </div>
+        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
       </section>
     `
   },
 
   async afterRender () {
-    const restaurants = await RestaurantsSource.recommendedRestaurants()
-    const restaurantsWrapper = document.querySelector('.rekomendasi .restaurants-wrapper')
+    try {
+      const home = document.querySelector('#home')
+      const restaurants = await RestaurantsSource.recommendedRestaurants()
 
-    restaurants.forEach(restaurant => {
-      if (restaurant.rating >= 4) {
-        restaurantsWrapper.append(createRestaurantItemTemplate(restaurant))
+      home.style.display = 'block'
+      home.innerHTML = `
+      <article class="hero">
+        <img src="./images/heros/hero-image_4.jpg" alt="" class="jumbotron" />
+        <section class="hero-content">
+          <h2>Temukan Restaurant Favoritmu</h2>
+        </section>
+      </article>
+      <article class="menu-of-the-week">
+        <h3>Menu of The Week</h3>
+        <section class="items-wrapper">
+          <div class="item">
+            <img src="./images/menus/ice-cream.jpg" alt="Ice Cream" />
+            <h4>Ice Cream</h4>
+          </div>
+          <div class="item">
+            <img src="./images/menus/pizza.jpg" alt="Pizza" />
+            <h4>Pizza</h4>
+          </div>
+          <div class="item">
+            <img src="./images/menus/cappuccino.jpg" alt="Cappuccino" />
+            <h4>Cappuccino</h4>
+          </div>
+          <div class="item">
+            <img src="./images/menus/steak.jpg" alt="Steak" />
+            <h4>Steak</h4>
+          </div>
+        </section>
+      </article>
+      <div id="restaurant">
+        <article class="rekomendasi">
+          <h3>Rekomendasi Kami</h3>
+          <section class="restaurants-wrapper"></section>
+        </article>
+      </div>`
+
+      const restaurantsWrapper = document.querySelector('.rekomendasi .restaurants-wrapper')
+      restaurants.sort((a, b) => a.rating - b.rating).reverse()
+
+      for (let i = 0; i < 6; i++) {
+        restaurantsWrapper.append(createRestaurantItemTemplate(restaurants[i]))
       }
-    })
+    } catch (error) {
+      window.location.hash = '/internalerror'
+    }
 
     DOM()
   }
@@ -80,10 +89,11 @@ const DOM = () => {
       const searchInput = document.createElement('input')
       searchInput.setAttribute('type', 'search')
       searchInput.setAttribute('name', 'search')
-      searchInput.setAttribute('placeholder', 'Masukkan nama, kategori atau menu restaurant')
+      searchInput.setAttribute('placeholder', 'Masukkan nama restaurant')
       searchInput.setAttribute('autocomplete', 'off')
 
       const button = document.createElement('button')
+      button.setAttribute('id', 'searchButton')
       button.innerText = 'Cari'
 
       wrapper.append(icon, searchInput, button)
@@ -123,10 +133,11 @@ const DOM = () => {
       const searchInput = document.createElement('input')
       searchInput.setAttribute('type', 'search')
       searchInput.setAttribute('name', 'search')
-      searchInput.setAttribute('placeholder', 'Masukkan nama, kategori atau menu restaurant')
+      searchInput.setAttribute('placeholder', 'Masukkan nama restaurant')
       searchInput.setAttribute('autocomplete', 'off')
 
       const button = document.createElement('button')
+      button.setAttribute('id', 'searchButton')
       button.innerText = 'Cari'
 
       wrapper.append(icon, searchInput, button)
@@ -156,6 +167,7 @@ const DOM = () => {
   function renderSearchList (device) {
     let searchIn = null
     let searchList = null
+    const searchButton = document.querySelector('#searchButton')
 
     if (device === 'mobile') {
       searchIn = document.querySelector('main .search-wrapper input')
@@ -170,11 +182,24 @@ const DOM = () => {
       searchList.innerHTML = ''
 
       if (keyword.length >= 2) {
-        const results = await RestaurantsSource.searchListRestaurants(keyword)
-        results.forEach(result => {
-          searchList.append(createSearchItemTemplate(result))
-        })
+        try {
+          const results = await RestaurantsSource.searchListRestaurants(keyword)
+          const restaurants = results.restaurants
+          restaurants.sort((a, b) => a.rating - b.rating).reverse()
+
+          if (restaurants.length > 0) {
+            searchList.innerHTML += createSearchItemsTemplate(restaurants, keyword)
+          }
+        } catch (error) {
+          window.location.hash = '/internalerror'
+        }
       }
+    })
+
+    searchButton.addEventListener('click', event => {
+      event.preventDefault()
+      const keyword = searchIn.value.toLowerCase()
+      window.location.hash = `/search/${keyword}`
     })
   }
 

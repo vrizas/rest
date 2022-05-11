@@ -6,16 +6,30 @@ const Detail = {
   async render () {
     return `
       <section id="detail">
-        <article id="restaurant"></article>
+        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
       </section>
     `
   },
 
   async afterRender () {
     const url = UrlParser.parseActiveUrlWithoutCombiner()
-    const restaurant = await RestaurantsSource.detailRestaurant(url.id)
-    const restaurantWrapper = document.querySelector('#restaurant')
-    restaurantWrapper.append(createRestaurantDetailTemplate(restaurant))
+
+    try {
+      const detail = document.querySelector('#detail')
+      const restaurant = await RestaurantsSource.detailRestaurant(url.id)
+
+      detail.style.display = 'block'
+      detail.innerHTML = '<article id="restaurant"></article>'
+
+      const restaurantWrapper = document.querySelector('#restaurant')
+      restaurantWrapper.append(createRestaurantDetailTemplate(restaurant))
+    } catch (error) {
+      if (error.status === 404) {
+        window.location.hash = '/404'
+      } else {
+        window.location.hash = '/internalerror'
+      }
+    }
   }
 }
 
