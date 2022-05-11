@@ -72,12 +72,14 @@ h3 {
 }
 
 #home .rekomendasi,
-#like #restaurant {
+#like #restaurant,
+#search {
   padding: 10px 15px;
 }
 
 #home .rekomendasi .restaurants-wrapper,
-#like .restaurants-wrapper {
+#like .restaurants-wrapper,
+#search .restaurants-wrapper {
   display: grid;
   gap: 20px;
 }
@@ -88,9 +90,27 @@ h3 {
   }
 }
 
+#search {
+  p {
+    font-size: 14px;
+    font-weight: $fw-md;
+    margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: 0;
+      font-weight: $fw-base;
+    }
+  }
+
+  .restaurants-wrapper {
+    margin-top: 20px;
+  }
+}
+
 #home,
 #detail,
 #like,
+#search,
 #error {
   min-height: calc(100vh - 156px);
   display: flex;
@@ -197,7 +217,7 @@ main {
 
     li {
       background-color: $color-white;
-      border-radius: 5px;
+      border-radius: 10px;
       margin-top: 5px;
     }
 
@@ -205,8 +225,18 @@ main {
       padding: 20px 25px;
       width: 100%;
       height: 100%;
+      border-radius: 10px;
       justify-content: start;
       gap: 10px;
+
+      &.link-search-list {
+        font-size: 14px;
+        font-weight: $fw-md;
+
+        &:hover {
+          background-color: $color-main;
+        }
+      }
 
       .img-wrapper {
         width: 80px;
@@ -230,7 +260,8 @@ main {
   }
 
   .rekomendasi,
-  .like {
+  .like,
+  .search {
     .restaurants-wrapper {
       grid-template-columns: repeat(1, 1fr);
     }
@@ -343,7 +374,8 @@ main {
 
   main {
     .rekomendasi,
-    .like {
+    .like,
+    .search {
       .restaurants-wrapper {
         grid-template-columns: repeat(2, 1fr);
 
@@ -431,7 +463,7 @@ main {
 
         li {
           background-color: $color-white;
-          border-radius: 5px;
+          border-radius: 10px;
           margin-top: 5px;
           box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
         }
@@ -440,8 +472,18 @@ main {
           padding: 20px 25px;
           width: 100%;
           height: 100%;
+          border-radius: 10px;
           justify-content: start;
           gap: 10px;
+
+          &.link-search-list {
+            font-size: 14px;
+            font-weight: $fw-md;
+
+            &:hover {
+              background-color: $color-main;
+            }
+          }
 
           .img-wrapper {
             width: 80px;
@@ -481,7 +523,8 @@ main {
 
   main {
     .rekomendasi,
-    .like {
+    .like,
+    .search {
       .restaurants-wrapper {
         grid-template-columns: repeat(3, 1fr);
       }
@@ -504,7 +547,8 @@ main {
 
   main {
     .rekomendasi,
-    .like {
+    .like,
+    .search {
       .restaurants-wrapper {
         grid-template-columns: repeat(4, 1fr);
       }
@@ -521,7 +565,8 @@ main {
 
   main {
     .rekomendasi,
-    .like {
+    .like,
+    .search {
       .restaurants-wrapper {
         grid-template-columns: repeat(7, 1fr);
       }

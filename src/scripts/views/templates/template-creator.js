@@ -14,36 +14,36 @@ const createRestaurantItemTemplate = (restaurant) => {
   return element
 }
 
-const createSearchItemTemplate = (restaurant) => {
-  const li = document.createElement('li')
-  li.setAttribute('id', restaurant.id)
+const createSearchItemsTemplate = (restaurants, keyword) => {
+  let template = ''
+  console.log(restaurants)
+  for (let i = 0; i < 3; i++) {
+    if (restaurants[i]) {
+      template += `
+      <li id="${restaurants[i].id}">
+        <a href="#/detail/${restaurants[i].id}" class="item">
+          <div class="img-wrapper">
+            <img src="${CONFIG.BASE_IMAGE_URL + restaurants[i].pictureId}" alt="Restaurant ${restaurants[i].name}, ${restaurants[i].city}">
+          </div>
+          <div class="text">
+            <h4>${restaurants[i].name}</h4>
+            <p>
+              <i class="bi bi-geo-alt-fill"></i> ${restaurants[i].city}
+            </p>
+          </div>
+        </a>
+      </li>
+     `
+    }
+  }
 
-  const item = document.createElement('a')
-  item.setAttribute('href', `/#/detail/${restaurant.id}`)
-  item.classList.add('item')
+  template += `
+    <li>
+      <a href="#/search/${keyword}" class="item link-search-list">Lihat semua hasil pencarian untuk "${keyword}"</a>
+    </li>
+  `
 
-  const imgWrapper = document.createElement('div')
-  imgWrapper.classList.add('img-wrapper')
-
-  const img = document.createElement('img')
-  img.setAttribute('src', CONFIG.BASE_IMAGE_URL + restaurant.pictureId)
-  img.setAttribute('alt', `Foto Restaurant ${restaurant.name}, ${restaurant.city}`)
-
-  imgWrapper.append(img)
-
-  const textWrapper = document.createElement('div')
-  textWrapper.classList.add('text')
-
-  const heading = document.createElement('h4')
-  heading.innerText = restaurant.name
-  const p = document.createElement('p')
-  p.innerHTML = `<i class="bi bi-geo-alt-fill"></i> ${restaurant.city}`
-
-  textWrapper.append(heading, p)
-
-  item.append(imgWrapper, textWrapper)
-  li.append(item)
-  return li
+  return template
 }
 
 const createRestaurantDetailTemplate = (restaurant) => {
@@ -76,7 +76,7 @@ const createLikedButtonTemplate = () => `
 
 export {
   createRestaurantItemTemplate,
-  createSearchItemTemplate,
+  createSearchItemsTemplate,
   createRestaurantDetailTemplate,
   createLikeButtonTemplate,
   createLikedButtonTemplate

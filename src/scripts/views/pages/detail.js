@@ -17,7 +17,10 @@ const Detail = {
     try {
       const detail = document.querySelector('#detail')
       const restaurant = await RestaurantsSource.detailRestaurant(url.id)
+
+      detail.style.display = 'block'
       detail.innerHTML = '<article id="restaurant"></article>'
+
       const restaurantWrapper = document.querySelector('#restaurant')
       restaurantWrapper.append(createRestaurantDetailTemplate(restaurant))
     } catch (error) {

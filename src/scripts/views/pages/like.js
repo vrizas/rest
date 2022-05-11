@@ -16,6 +16,7 @@ const Like = {
       const like = document.querySelector('#like')
       const restaurants = await FavoriteRestaurantIdb.getAllRestaurants()
 
+      like.style.display = 'block'
       like.innerHTML = `
       <div id="restaurant">
           <article class="like">

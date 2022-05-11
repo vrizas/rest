@@ -1,7 +1,7 @@
 import RestaurantsSource from '../../data/restaurants-source'
 import {
   createRestaurantItemTemplate,
-  createSearchItemTemplate
+  createSearchItemsTemplate
 } from '../templates/template-creator'
 
 const Home = {
@@ -17,6 +17,8 @@ const Home = {
     try {
       const home = document.querySelector('#home')
       const restaurants = await RestaurantsSource.recommendedRestaurants()
+
+      home.style.display = 'block'
       home.innerHTML = `
       <article class="hero">
         <img src="./images/heros/hero-image_4.jpg" alt="" class="jumbotron" />
@@ -53,12 +55,12 @@ const Home = {
       </div>`
 
       const restaurantsWrapper = document.querySelector('.rekomendasi .restaurants-wrapper')
-      restaurants.forEach(restaurant => {
-        if (restaurant.rating >= 4) {
-          restaurantsWrapper.append(createRestaurantItemTemplate(restaurant))
-        }
-      })
-    } catch {
+      restaurants.sort((a, b) => a.rating - b.rating).reverse()
+
+      for (let i = 0; i < 6; i++) {
+        restaurantsWrapper.append(createRestaurantItemTemplate(restaurants[i]))
+      }
+    } catch (error) {
       window.location.hash = '/internalerror'
     }
 
@@ -87,10 +89,11 @@ const DOM = () => {
       const searchInput = document.createElement('input')
       searchInput.setAttribute('type', 'search')
       searchInput.setAttribute('name', 'search')
-      searchInput.setAttribute('placeholder', 'Masukkan nama, kategori atau menu restaurant')
+      searchInput.setAttribute('placeholder', 'Masukkan nama restaurant')
       searchInput.setAttribute('autocomplete', 'off')
 
       const button = document.createElement('button')
+      button.setAttribute('id', 'searchButton')
       button.innerText = 'Cari'
 
       wrapper.append(icon, searchInput, button)
@@ -130,10 +133,11 @@ const DOM = () => {
       const searchInput = document.createElement('input')
       searchInput.setAttribute('type', 'search')
       searchInput.setAttribute('name', 'search')
-      searchInput.setAttribute('placeholder', 'Masukkan nama, kategori atau menu restaurant')
+      searchInput.setAttribute('placeholder', 'Masukkan nama restaurant')
       searchInput.setAttribute('autocomplete', 'off')
 
       const button = document.createElement('button')
+      button.setAttribute('id', 'searchButton')
       button.innerText = 'Cari'
 
       wrapper.append(icon, searchInput, button)
@@ -163,6 +167,7 @@ const DOM = () => {
   function renderSearchList (device) {
     let searchIn = null
     let searchList = null
+    const searchButton = document.querySelector('#searchButton')
 
     if (device === 'mobile') {
       searchIn = document.querySelector('main .search-wrapper input')
@@ -177,11 +182,24 @@ const DOM = () => {
       searchList.innerHTML = ''
 
       if (keyword.length >= 2) {
-        const results = await RestaurantsSource.searchListRestaurants(keyword)
-        results.forEach(result => {
-          searchList.append(createSearchItemTemplate(result))
-        })
+        try {
+          const results = await RestaurantsSource.searchListRestaurants(keyword)
+          const restaurants = results.restaurants
+          restaurants.sort((a, b) => a.rating - b.rating).reverse()
+
+          if (restaurants.length > 0) {
+            searchList.innerHTML += createSearchItemsTemplate(restaurants, keyword)
+          }
+        } catch (error) {
+          window.location.hash = '/internalerror'
+        }
       }
+    })
+
+    searchButton.addEventListener('click', event => {
+      event.preventDefault()
+      const keyword = searchIn.value.toLowerCase()
+      window.location.hash = `/search/${keyword}`
     })
   }
 
