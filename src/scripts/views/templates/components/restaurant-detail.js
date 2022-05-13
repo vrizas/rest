@@ -83,7 +83,7 @@ class RestaurantDetail extends HTMLElement {
                     <input type="text" id="name" placeholder="Masukkan nama Anda" required>
                     <textarea id="review" rows="4" cols="50" placeholder="Review tentang restaurant ini" required></textarea>
                     <div class="action">
-                        <button>Kirim</button>
+                        <button id="btnSendReview">Kirim</button>
                     </div>
                 </form>
             </section>
@@ -117,13 +117,13 @@ class RestaurantDetail extends HTMLElement {
         await RestaurantsSource.reviewRestaurant(review)
 
         this.querySelector('.customer-reviews .items-wrapper').innerHTML += `
-        <div class="item">
+        <div class="item last-review">
             <div class="item-header">   
-                <p><b>${review.name}</b></p>
-                <p>${this.createDateFormatNow()}</p>
+                <p class="reviewer-name"><b>${review.name}</b></p>
+                <p class="reviewer-date">${this.createDateFormatNow()}</p>
             </div>
             <div class="item-content">
-                <p>${review.review}</p>
+                <p class="reviewer-review">${review.review}</p>
             </div>
         </div>
         `
@@ -184,11 +184,11 @@ class RestaurantDetail extends HTMLElement {
       const item = `
         <div class="item">
             <div class="item-header">   
-                <p><b>${review.name}</b></p>
-                <p>${review.date}</p>
+                <p class="reviewer-name"><b>${review.name}</b></p>
+                <p class="reviewer-date">${review.date}</p>
             </div>
             <div class="item-content">
-                <p>${review.review}</p>
+                <p class="reviewer-review">${review.review}</p>
             </div>
         </div>
         `

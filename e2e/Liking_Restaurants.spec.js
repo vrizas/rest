@@ -15,9 +15,7 @@ Scenario('liking one restaurant', async ({ I }) => {
   I.see('Belum ada restaurant yang kamu sukai', '.movie-item__not__found')
 
   I.amOnPage('/')
-
   I.seeElement('restaurant-item')
-  pause()
 
   const firstRestaurant = locate('restaurant-item').first()
   const firstRestaurantName = await I.grabAttributeFrom(firstRestaurant)

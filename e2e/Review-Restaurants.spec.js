@@ -14,7 +14,7 @@ Scenario('review one restaurant', async ({ I }) => {
   I.seeElement('input#name')
 
   const inputName = 'Bambang'
-  const inputReview = 'Mantapp!'
+  const inputReview = 'review terakhir'
 
   I.seeElement('input#name')
   I.fillField('input#name', inputName)
@@ -22,10 +22,11 @@ Scenario('review one restaurant', async ({ I }) => {
   I.seeElement('textarea#review')
   I.fillField('textarea#review', inputReview)
 
-  I.click('#btnSendReview')
-  I.seeElement(locate('.customer-reviews .item:nth-last-of-type(1)'))
-  const reviewerName = await I.grabTextFrom(locate('.customer-reviews .item:nth-last-of-type(1) .reviewer-name'))
-  const reviewerReview = await I.grabTextFrom(locate('.customer-reviews .item:nth-last-of-type(1) .reviewer-review'))
+  I.click('button#btnSendReview')
+  I.seeElement('.last-review')
+
+  const reviewerName = await I.grabTextFrom(locate('.last-review .reviewer-name'))
+  const reviewerReview = await I.grabTextFrom(locate('.last-review .reviewer-review'))
 
   assert.strictEqual(inputName, reviewerName)
   assert.strictEqual(inputReview, reviewerReview)

@@ -4,6 +4,7 @@ import CONFIG from '../../globals/config'
 
 const createRestaurantItemTemplate = (restaurant) => {
   const element = document.createElement('restaurant-item')
+  element.classList.add('restaurant-item')
   element.setAttribute('id', restaurant.id)
   element.setAttribute('name', restaurant.name)
   element.setAttribute('description', restaurant.description.slice(0, 350) + (restaurant.description.length > 350 ? '...' : ''))
