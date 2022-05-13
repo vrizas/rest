@@ -35,7 +35,10 @@ class App {
       document.querySelector('#mainContent').focus()
     })
 
-    this._content.innerHTML = await page.render()
+    this._content.style.display = 'flex'
+    const content = await page.render()
+    this._content.style.display = 'block'
+    this._content.innerHTML = content
     await page.afterRender()
   }
 

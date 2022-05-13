@@ -8,78 +8,101 @@ const Home = {
   async render () {
     return `
       <section id="home">
-        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+        <article class="hero">
+          <picture>
+            <source media="(max-width: 600px)" type="image/webp" srcset="./images/heros/hero-image_4-small.webp">
+            <source type="image/webp" srcset="./images/heros/hero-image_4-large.webp">
+            <source media="(max-width: 600px)" type="image/jpeg" srcset="./images/heros/hero-image_4-small.jpg">
+            <img src="./images/heros/hero-image_4-large.jpg" alt="" class="jumbotron skeleton lazyload" />
+          </picture>
+          <section class="hero-content">
+            <h2>Temukan Restaurant Favoritmu</h2>
+          </section>
+        </article>
+        <article class="menu-of-the-week">
+          <h3>Menu of The Week</h3>
+          <section class="items-wrapper">
+            <div class="item">
+              <picture>
+                <source media="(max-width: 600px)" type="image/webp" srcset="./images/menus/ice-cream-small.webp">
+                <source type="image/webp" srcset="./images/menus/ice-cream-large.webp">
+                <source media="(max-width: 600px)" type="image/jpeg" srcset="./images/menus/ice-cream-small.jpg">
+                <img src="./images/menus/ice-cream-large.jpg" alt="Ice Cream" class="skeleton lazyload" />
+              </picture>
+              <h4>Ice Cream</h4>
+            </div>
+            <div class="item">
+              <picture>
+                <source media="(max-width: 600px)" type="image/webp" srcset="./images/menus/pizza-small.webp">
+                <source type="image/webp" srcset="./images/menus/pizza-large.webp">
+                <source media="(max-width: 600px)" type="image/jpeg" srcset="./images/menus/pizza-small.jpg">
+                <img src="./images/menus/pizza-large.jpg" alt="Pizza" class="skeleton lazyload" />
+              </picture>
+              <h4>Pizza</h4>
+            </div>
+            <div class="item">
+              <picture>
+                <source media="(max-width: 600px)" type="image/webp" srcset="./images/menus/cappuccino-small.webp">
+                <source type="image/webp" srcset="./images/menus/cappuccino-large.webp">
+                <source media="(max-width: 600px)" type="image/jpeg" srcset="./images/menus/cappuccino-small.jpg">
+                <img src="./images/menus/cappuccino-large.jpg" alt="Cappuccino" class="skeleton lazyload" />
+              </picture>
+              <h4>Cappuccino</h4>
+            </div>
+            <div class="item">
+              <picture>
+                <source media="(max-width: 600px)" type="image/webp" srcset="./images/menus/steak-small.webp">
+                <source type="image/webp" srcset="./images/menus/steak-large.webp">
+                <source media="(max-width: 600px)" type="image/jpeg" srcset="./images/menus/steak-small.jpg">
+                <img src="./images/menus/steak-large.jpg" alt="Steak" class="skeleton lazyload" />
+              </picture>
+              <h4>Steak</h4>
+            </div>
+          </section>
+        </article>
+        <div id="restaurant">
+          <article class="rekomendasi">
+            <h3>Rekomendasi Kami</h3>
+            <section class="restaurants-wrapper"></section>
+          </article>
+        </div>
       </section>
     `
   },
 
   async afterRender () {
     try {
-      const home = document.querySelector('#home')
-      const restaurants = await RestaurantsSource.recommendedRestaurants()
-
-      home.style.display = 'block'
-      home.innerHTML = `
-      <article class="hero">
-        <picture>
-          <source media="(max-width: 600px)" type="image/webp" srcset="./images/heros/hero-image_4-small.webp">
-          <source type="image/webp" srcset="./images/heros/hero-image_4-large.webp">
-          <source media="(max-width: 600px)" type="image/jpeg" srcset="./images/heros/hero-image_4-small.jpg">
-          <img src="./images/heros/hero-image_4-large.jpg" alt="" class="jumbotron skeleton lazyload" />
-        </picture>
-        <section class="hero-content">
-          <h2>Temukan Restaurant Favoritmu</h2>
-        </section>
-      </article>
-      <article class="menu-of-the-week">
-        <h3>Menu of The Week</h3>
-        <section class="items-wrapper">
-          <div class="item">
-            <picture>
-              <source media="(max-width: 600px)" type="image/webp" srcset="./images/menus/ice-cream-small.webp">
-              <source type="image/webp" srcset="./images/menus/ice-cream-large.webp">
-              <source media="(max-width: 600px)" type="image/jpeg" srcset="./images/menus/ice-cream-small.jpg">
-              <img src="./images/menus/ice-cream-large.jpg" alt="Ice Cream" class="skeleton lazyload" />
-            </picture>
-            <h4>Ice Cream</h4>
-          </div>
-          <div class="item">
-            <picture>
-              <source media="(max-width: 600px)" type="image/webp" srcset="./images/menus/pizza-small.webp">
-              <source type="image/webp" srcset="./images/menus/pizza-large.webp">
-              <source media="(max-width: 600px)" type="image/jpeg" srcset="./images/menus/pizza-small.jpg">
-              <img src="./images/menus/pizza-large.jpg" alt="Pizza class="skeleton lazyload" />
-            </picture>
-            <h4>Pizza</h4>
-          </div>
-          <div class="item">
-            <picture>
-              <source media="(max-width: 600px)" type="image/webp" srcset="./images/menus/cappuccino-small.webp">
-              <source type="image/webp" srcset="./images/menus/cappuccino-large.webp">
-              <source media="(max-width: 600px)" type="image/jpeg" srcset="./images/menus/cappuccino-small.jpg">
-              <img src="./images/menus/cappuccino-large.jpg" alt="Cappuccino" class="skeleton lazyload" />
-            </picture>
-            <h4>Cappuccino</h4>
-          </div>
-          <div class="item">
-            <picture>
-              <source media="(max-width: 600px)" type="image/webp" srcset="./images/menus/steak-small.webp">
-              <source type="image/webp" srcset="./images/menus/steak-large.webp">
-              <source media="(max-width: 600px)" type="image/jpeg" srcset="./images/menus/steak-small.jpg">
-              <img src="./images/menus/steak-large.jpg" alt="Steak" class="skeleton lazyload" />
-            </picture>
-            <h4>Steak</h4>
-          </div>
-        </section>
-      </article>
-      <div id="restaurant">
-        <article class="rekomendasi">
-          <h3>Rekomendasi Kami</h3>
-          <section class="restaurants-wrapper"></section>
-        </article>
-      </div>`
-
       const restaurantsWrapper = document.querySelector('.rekomendasi .restaurants-wrapper')
+      for (let i = 0; i < 6; i++) {
+        restaurantsWrapper.innerHTML +=
+          `<div class="item">
+            <div class="item-hero">
+                <div class="img-wrapper">
+                  <img class="skeleton lazyload">
+                </div>
+                <div class="rating">
+                    <div class="skeleton skeleton-text"></div>
+                </div>
+            </div>
+            <div class="item-content">
+                <h4>
+                  <div class="skeleton skeleton-text"></div>
+                </h4>
+                <div class="lokasi">
+                  <div class="skeleton skeleton-text"></div>
+                </div>
+                <div class="deskripsi">
+                  <div class="skeleton skeleton-text"></div>
+                  <div class="skeleton skeleton-text"></div>
+                  <div class="skeleton skeleton-text"></div>
+                  <div class="skeleton skeleton-text"></div>
+                  <div class="skeleton skeleton-text"></div>
+                </div>
+            </div>
+          </div>`
+      }
+      const restaurants = await RestaurantsSource.recommendedRestaurants()
+      restaurantsWrapper.innerHTML = ''
       restaurants.sort((a, b) => a.rating - b.rating).reverse()
 
       for (let i = 0; i < 6; i++) {

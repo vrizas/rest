@@ -5,9 +5,7 @@ import { createRestaurantItemTemplate } from '../templates/template-creator'
 const Search = {
   async render () {
     return `
-      <section id="search" class="search">
-        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-      </section>
+      <section id="search" class="search"></section>
     `
   },
 
@@ -17,9 +15,37 @@ const Search = {
     const searchList = document.querySelector('#search')
 
     try {
+      for (let i = 0; i < 6; i++) {
+        searchList.innerHTML +=
+          `<div class="item">
+            <div class="item-hero">
+                <div class="img-wrapper">
+                  <img class="skeleton lazyload">
+                </div>
+                <div class="rating">
+                    <div class="skeleton skeleton-text"></div>
+                </div>
+            </div>
+            <div class="item-content">
+                <h4>
+                  <div class="skeleton skeleton-text"></div>
+                </h4>
+                <div class="lokasi">
+                  <div class="skeleton skeleton-text"></div>
+                </div>
+                <div class="deskripsi">
+                  <div class="skeleton skeleton-text"></div>
+                  <div class="skeleton skeleton-text"></div>
+                  <div class="skeleton skeleton-text"></div>
+                  <div class="skeleton skeleton-text"></div>
+                  <div class="skeleton skeleton-text"></div>
+                </div>
+            </div>
+          </div>`
+      }
+
       const results = await RestaurantsSource.searchListRestaurants(keyword)
       const restaurants = results.restaurants
-      searchList.style.display = 'block'
 
       if (restaurants.length > 0) {
         restaurants.sort((a, b) => a.rating - b.rating).reverse()

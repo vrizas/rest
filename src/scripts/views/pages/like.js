@@ -6,26 +6,52 @@ const Like = {
   async render () {
     return `
       <section id="like">
-        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+        <div id="restaurant">
+            <article class="like">
+                <h3>Restaurant yang Kamu Sukai</h3>
+                <section class="restaurants-wrapper"></section>
+            </article>
+        </div>
       </section>
     `
   },
 
   async afterRender () {
     try {
-      const like = document.querySelector('#like')
+      const restaurantsWrapper = document.querySelector('.restaurants-wrapper')
+      for (let i = 0; i < 3; i++) {
+        restaurantsWrapper.innerHTML +=
+          `<div class="item">
+            <div class="item-hero">
+                <div class="img-wrapper">
+                  <img class="skeleton lazyload">
+                </div>
+                <div class="rating">
+                    <div class="skeleton skeleton-text"></div>
+                </div>
+            </div>
+            <div class="item-content">
+                <h4>
+                  <div class="skeleton skeleton-text"></div>
+                </h4>
+                <div class="lokasi">
+                  <div class="skeleton skeleton-text"></div>
+                </div>
+                <div class="deskripsi">
+                  <div class="skeleton skeleton-text"></div>
+                  <div class="skeleton skeleton-text"></div>
+                  <div class="skeleton skeleton-text"></div>
+                  <div class="skeleton skeleton-text"></div>
+                  <div class="skeleton skeleton-text"></div>
+                </div>
+            </div>
+          </div>`
+      }
+
       const restaurants = await FavoriteRestaurantIdb.getAllRestaurants()
 
-      like.style.display = 'block'
-      like.innerHTML = `
-      <div id="restaurant">
-          <article class="like">
-              <h3>Restaurant yang Kamu Sukai</h3>
-              <section class="restaurants-wrapper"></section>
-          </article>
-      </div>`
+      restaurantsWrapper.innerHTML = ''
 
-      const restaurantsWrapper = document.querySelector('.restaurants-wrapper')
       if (restaurants.length > 0) {
         restaurants.forEach(restaurant => {
           restaurantsWrapper.append(createRestaurantItemTemplate(restaurant))
