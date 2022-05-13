@@ -1,6 +1,7 @@
 import RestaurantsSource from '../../../data/restaurants-source'
-import LikeButtonInitiator from '../../../utils/like-button-initiator'
+import LikeButtonPresenter from '../../../utils/like-button-presenter'
 import showFlashMessage from '../../../utils/flash-message'
+import FavoriteRestaurantIdb from '../../../data/favorite-restaurant-idb'
 
 /* eslint-disable eqeqeq */
 class RestaurantDetail extends HTMLElement {
@@ -353,8 +354,9 @@ class RestaurantDetail extends HTMLElement {
   }
 
   async likeButtonInit () {
-    LikeButtonInitiator.init({
+    LikeButtonPresenter.init({
       likeButtonWrapper: this.shadowDOM.querySelector('#likeButtonWrapper'),
+      favoriteRestaurants: FavoriteRestaurantIdb,
       restaurant: {
         id: this.id,
         name: this.name,
@@ -451,4 +453,4 @@ class RestaurantDetail extends HTMLElement {
     }
   }
 }
-customElements.define('restaurant-detail', RestaurantDetail)
+customElements.get('restaurant-detail') || customElements.define('restaurant-detail', RestaurantDetail)

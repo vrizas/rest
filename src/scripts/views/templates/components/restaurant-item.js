@@ -187,4 +187,4 @@ class RestaurantItem extends HTMLElement {
     }
   }
 }
-customElements.define('restaurant-item', RestaurantItem)
+customElements.get('restaurant-item') || customElements.define('restaurant-item', RestaurantItem)
