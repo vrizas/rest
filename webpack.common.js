@@ -5,6 +5,7 @@ const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin')
 const WebpackPwaManifest = require('webpack-pwa-manifest')
 const ImageminWebpackPlugin = require('imagemin-webpack-plugin').default
 const ImageminMozjpeg = require('imagemin-mozjpeg')
+const ImageminWebp = require('imagemin-webp')
 
 module.exports = {
   entry: path.resolve(__dirname, 'src/scripts/index.js'),
@@ -74,15 +75,21 @@ module.exports = {
       patterns: [
         {
           from: path.resolve(__dirname, 'src/public/'),
-          to: path.resolve(__dirname, 'dist/')
+          to: path.resolve(__dirname, 'dist/'),
+          globOptions: {
+            ignore: ['**/images/**']
+          }
         }
       ]
     }),
     new ImageminWebpackPlugin({
       plugins: [
         ImageminMozjpeg({
-          quality: 70,
+          quality: 50,
           progressive: true
+        }),
+        ImageminWebp({
+          quality: 50
         })
       ]
     }),

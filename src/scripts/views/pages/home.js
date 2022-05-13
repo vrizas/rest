@@ -21,7 +21,12 @@ const Home = {
       home.style.display = 'block'
       home.innerHTML = `
       <article class="hero">
-        <img src="./images/heros/hero-image_4.jpg" alt="" class="jumbotron" />
+        <picture>
+          <source media="(max-width: 600px)" type="image/webp" srcset="./images/heros/hero-image_4-small.webp">
+          <source type="image/webp" srcset="./images/heros/hero-image_4-large.webp">
+          <source media="(max-width: 600px)" type="image/jpeg" srcset="./images/heros/hero-image_4-small.jpg">
+          <img src="./images/heros/hero-image_4-large.jpg" alt="" class="jumbotron skeleton lazyload" />
+        </picture>
         <section class="hero-content">
           <h2>Temukan Restaurant Favoritmu</h2>
         </section>
@@ -30,19 +35,39 @@ const Home = {
         <h3>Menu of The Week</h3>
         <section class="items-wrapper">
           <div class="item">
-            <img src="./images/menus/ice-cream.jpg" alt="Ice Cream" />
+            <picture>
+              <source media="(max-width: 600px)" type="image/webp" srcset="./images/menus/ice-cream-small.webp">
+              <source type="image/webp" srcset="./images/menus/ice-cream-large.webp">
+              <source media="(max-width: 600px)" type="image/jpeg" srcset="./images/menus/ice-cream-small.jpg">
+              <img src="./images/menus/ice-cream-large.jpg" alt="Ice Cream" class="skeleton lazyload" />
+            </picture>
             <h4>Ice Cream</h4>
           </div>
           <div class="item">
-            <img src="./images/menus/pizza.jpg" alt="Pizza" />
+            <picture>
+              <source media="(max-width: 600px)" type="image/webp" srcset="./images/menus/pizza-small.webp">
+              <source type="image/webp" srcset="./images/menus/pizza-large.webp">
+              <source media="(max-width: 600px)" type="image/jpeg" srcset="./images/menus/pizza-small.jpg">
+              <img src="./images/menus/pizza-large.jpg" alt="Pizza class="skeleton lazyload" />
+            </picture>
             <h4>Pizza</h4>
           </div>
           <div class="item">
-            <img src="./images/menus/cappuccino.jpg" alt="Cappuccino" />
+            <picture>
+              <source media="(max-width: 600px)" type="image/webp" srcset="./images/menus/cappuccino-small.webp">
+              <source type="image/webp" srcset="./images/menus/cappuccino-large.webp">
+              <source media="(max-width: 600px)" type="image/jpeg" srcset="./images/menus/cappuccino-small.jpg">
+              <img src="./images/menus/cappuccino-large.jpg" alt="Cappuccino" class="skeleton lazyload" />
+            </picture>
             <h4>Cappuccino</h4>
           </div>
           <div class="item">
-            <img src="./images/menus/steak.jpg" alt="Steak" />
+            <picture>
+              <source media="(max-width: 600px)" type="image/webp" srcset="./images/menus/steak-small.webp">
+              <source type="image/webp" srcset="./images/menus/steak-large.webp">
+              <source media="(max-width: 600px)" type="image/jpeg" srcset="./images/menus/steak-small.jpg">
+              <img src="./images/menus/steak-large.jpg" alt="Steak" class="skeleton lazyload" />
+            </picture>
             <h4>Steak</h4>
           </div>
         </section>
