@@ -31,7 +31,7 @@ const Like = {
           restaurantsWrapper.append(createRestaurantItemTemplate(restaurant))
         })
       } else {
-        restaurantsWrapper.innerHTML = '<p>Belum ada restaurant yang kamu sukai</p>'
+        restaurantsWrapper.innerHTML = '<p class="movie-item__not__found">Belum ada restaurant yang kamu sukai</p>'
       }
     } catch (error) {
       window.location.hash = '/internalerror'
