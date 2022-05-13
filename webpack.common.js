@@ -6,6 +6,8 @@ const WebpackPwaManifest = require('webpack-pwa-manifest')
 const ImageminWebpackPlugin = require('imagemin-webpack-plugin').default
 const ImageminMozjpeg = require('imagemin-mozjpeg')
 const ImageminWebp = require('imagemin-webp')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 
 module.exports = {
   entry: path.resolve(__dirname, 'src/scripts/index.js'),
@@ -27,8 +29,8 @@ module.exports = {
         ]
       },
       {
-        test: /\.(s(a|c)ss)$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        test: /.s?css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -42,6 +44,11 @@ module.exports = {
           }
         }
       }
+    ]
+  },
+  optimization: {
+    minimizer: [
+      new CssMinimizerPlugin()
     ]
   },
   plugins: [
@@ -95,6 +102,7 @@ module.exports = {
     }),
     new ServiceWorkerWebpackPlugin({
       entry: path.resolve(__dirname, 'src/scripts/sw.js')
-    })
+    }),
+    new MiniCssExtractPlugin()
   ]
 }
