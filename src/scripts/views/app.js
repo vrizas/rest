@@ -40,6 +40,8 @@ class App {
     this._content.style.display = 'block'
     this._content.innerHTML = content
     await page.afterRender()
+    document.body.scrollTop = 0
+    document.documentElement.scrollTop = 0
   }
 
   navigationActivate (url) {

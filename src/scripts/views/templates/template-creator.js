@@ -9,7 +9,7 @@ const createRestaurantItemTemplate = (restaurant) => {
   element.setAttribute('name', restaurant.name)
   element.setAttribute('description', restaurant.description.slice(0, 350) + (restaurant.description.length > 350 ? '...' : ''))
   element.setAttribute('pictureId', restaurant.pictureId)
-  element.setAttribute('pictureUrl', CONFIG.BASE_IMAGE_URL + restaurant.pictureId)
+  element.setAttribute('pictureUrl', CONFIG.BASE_SMALL_IMAGE_URL + restaurant.pictureId)
   element.setAttribute('city', restaurant.city)
   element.setAttribute('rating', restaurant.rating)
   return element
@@ -24,7 +24,7 @@ const createSearchItemsTemplate = (restaurants, keyword) => {
       <li id="${restaurants[i].id}">
         <a href="#/detail/${restaurants[i].id}" class="item">
           <div class="img-wrapper">
-            <img src="${CONFIG.BASE_IMAGE_URL + restaurants[i].pictureId}" alt="Restaurant ${restaurants[i].name}, ${restaurants[i].city}">
+            <img src="${CONFIG.BASE_SMALL_IMAGE_URL + restaurants[i].pictureId}" alt="Restaurant ${restaurants[i].name}, ${restaurants[i].city}">
           </div>
           <div class="text">
             <h4>${restaurants[i].name}</h4>
@@ -53,7 +53,7 @@ const createRestaurantDetailTemplate = (restaurant) => {
   element.setAttribute('name', restaurant.name)
   element.setAttribute('description', restaurant.description)
   element.setAttribute('pictureId', restaurant.pictureId)
-  element.setAttribute('pictureUrl', CONFIG.BASE_IMAGE_URL + restaurant.pictureId)
+  element.setAttribute('pictureUrl', CONFIG.BASE_LARGE_IMAGE_URL + restaurant.pictureId)
   element.setAttribute('address', restaurant.address)
   element.setAttribute('city', restaurant.city)
   element.setAttribute('rating', restaurant.rating)
