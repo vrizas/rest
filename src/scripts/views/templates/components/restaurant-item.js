@@ -16,7 +16,7 @@ class RestaurantItem extends HTMLElement {
         <a aria-label="Restaurant ${this.name}, ${this.city}" href="/#/detail/${this.id}" class="item">
           <div class="item-hero">
               <div class="img-wrapper">
-                <img src="${this.pictureUrl}" alt="Restaurant ${this.name}, ${this.city}" class="skeleton lazyload">
+                <img data-src="${this.pictureUrl}" alt="Restaurant ${this.name}, ${this.city}" class="skeleton lazyload">
               </div>
               <div class="rating">
                   <span class="rating-text">${this.rating}</span>

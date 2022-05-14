@@ -12,6 +12,7 @@ Scenario('review one restaurant', async ({ I }) => {
   I.click(locate('restaurant-item').first())
 
   I.seeElement('input#name')
+  I.seeElement('button#btnSendReview')
 
   const inputName = 'Bambang'
   const inputReview = 'review terakhir'

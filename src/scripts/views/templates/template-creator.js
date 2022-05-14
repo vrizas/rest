@@ -24,7 +24,7 @@ const createSearchItemsTemplate = (restaurants, keyword) => {
       <li id="${restaurants[i].id}">
         <a href="#/detail/${restaurants[i].id}" class="item">
           <div class="img-wrapper">
-            <img src="${CONFIG.BASE_SMALL_IMAGE_URL + restaurants[i].pictureId}" alt="Restaurant ${restaurants[i].name}, ${restaurants[i].city}">
+            <img data-src="${CONFIG.BASE_SMALL_IMAGE_URL + restaurants[i].pictureId}" alt="Restaurant ${restaurants[i].name}, ${restaurants[i].city}" class="skeleton lazyload"> 
           </div>
           <div class="text">
             <h4>${restaurants[i].name}</h4>

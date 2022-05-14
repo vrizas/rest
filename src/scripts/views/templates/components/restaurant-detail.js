@@ -35,7 +35,7 @@ class RestaurantDetail extends HTMLElement {
     this.innerHTML =
         `
         <article class="hero">
-            <img src="${this.pictureUrl}" alt="Foto Restaurant ${this.name}, ${this.city}" class="skeleton lazyload">
+            <img data-src="${this.pictureUrl}" alt="Foto Restaurant ${this.name}, ${this.city}" class="skeleton lazyload">
         </article>
         <article class="content">
             <div class="top-content">
